@@ -27,7 +27,7 @@ function onInput(evt) {
           'Too many matches found. Please enter a more specific name.'
         );
       } else if (data.length > 1 && data.length <= 10) {
-        console.log(data);
+        // console.log(data);
         countryInfoEl.innerHTML = '';
         return (countryListEl.innerHTML = countryItems(data));
       } else {
