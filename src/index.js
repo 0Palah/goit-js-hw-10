@@ -13,13 +13,12 @@ const countryInfoEl = document.querySelector('.country-info');
 searchInputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput(evt) {
-  const countryName = evt.target.value.trim();
-  countryListEl.innerHTML = '';
-  countryInfoEl.innerHTML = '';
-
-  if (!countryInfoEl) {
+  if (evt.target.value === '') {
+    countryListEl.innerHTML = '';
+    countryInfoEl.innerHTML = '';
     return;
   }
+  const countryName = evt.target.value.trim();
 
   fetchCountries(countryName)
     .then(data => {
@@ -29,9 +28,11 @@ function onInput(evt) {
         );
       } else if (data.length > 1 && data.length <= 10) {
         console.log(data);
+        countryInfoEl.innerHTML = '';
         return (countryListEl.innerHTML = countryItems(data));
       } else {
         const createCountryCard = data => {
+          countryListEl.innerHTML = '';
           countryInfoEl.innerHTML = foundCountry(data);
         };
         let { name, capital, population, flags, languages } = data[0];
